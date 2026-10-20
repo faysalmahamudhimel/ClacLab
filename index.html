@@ -3,101 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0b1220" />
-  <title>CalcLab — Scientific Calculator</title>
-  <meta name="description" content="A clean, responsive scientific calculator for everyday calculations." />
+  <meta name="theme-color" content="#080d17" />
+  <title>CalcLab — Free Online Tools</title>
+  <meta name="description" content="Explore a growing collection of free online tools designed to make everyday tasks faster and easier." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="CalcLab — Free Online Tools" />
+  <meta property="og:description" content="Useful tools. One simple place. Explore free tools for everyday tasks." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
+  <script src="common.js" defer></script>
 </head>
-<body>
+<body data-root="">
+  <div id="siteHeader"></div>
   <main class="page">
-    <header class="topbar">
-      <a class="brand" href="#" aria-label="CalcLab home">
-        <span class="brand-mark">∑</span>
-        <span>Calc<span class="brand-accent">Lab</span></span>
-      </a>
-      <span class="top-note"><span class="status-dot"></span> SCIENTIFIC CALCULATOR</span>
-    </header>
-
-    <section class="intro">
-      <p class="eyebrow">YOUR EVERYDAY MATH TOOL</p>
-      <h1>Calculate beyond<br /><span>the basics.</span></h1>
-      <p class="intro-copy">A simple, fast scientific calculator. More useful tools are coming soon.</p>
+    <section class="intro hero">
+      <p class="eyebrow">YOUR EVERYDAY DIGITAL TOOLBOX</p>
+      <h1>Useful Tools.<br /><span>One Simple Place.</span></h1>
+      <p class="intro-copy">Explore a growing collection of free online tools designed to make everyday tasks faster and easier.</p>
+      <a class="primary-link" href="#tools">Explore Tools <span aria-hidden="true">↓</span></a>
+      <div class="hero-note"><span class="status-dot"></span> Simple, useful tools. No sign-up required.</div>
     </section>
 
-    <section class="calculator" aria-label="Scientific calculator">
-      <div class="calc-heading">
+    <section class="tools-section" id="tools" aria-labelledby="toolsTitle">
+      <div class="section-heading">
         <div>
-          <p class="calc-label">CALCLAB / 001</p>
-          <h2>Scientific</h2>
+          <p class="eyebrow">THE CALCLAB TOOLBOX</p>
+          <h2 id="toolsTitle">Find the right tool.</h2>
+          <p class="section-copy">Handy tools for the little things you do every day.</p>
         </div>
-        <button id="angleMode" class="mode-button" type="button" aria-label="Toggle angle mode">DEG</button>
+        <span class="tool-count" id="toolCount"></span>
       </div>
-
-      <div class="screen">
-        <div id="expression" class="expression" aria-live="polite">Ready to calculate</div>
-        <div id="display" class="display" aria-live="polite">0</div>
+      <div class="category-list" id="categoryList" aria-label="Filter tools by category"></div>
+      <div class="tool-grid" id="toolGrid"></div>
+      <div class="empty-state" id="emptyState" hidden>
+        <span class="empty-icon" aria-hidden="true">⌕</span>
+        <h3>No tools found</h3>
+        <p>Try another search or choose a different category.</p>
+        <button class="text-button" id="resetFilters" type="button">Clear filters</button>
       </div>
-
-      <div class="keypad">
-        <button class="key function" data-action="clear">AC</button>
-        <button class="key function" data-action="delete" aria-label="Delete last character">DEL</button>
-        <button class="key function" data-value="(">(</button>
-        <button class="key function" data-value=")">)</button>
-        <button class="key operator" data-value="/">÷</button>
-
-        <button class="key function" data-value="sin(">sin</button>
-        <button class="key function" data-value="cos(">cos</button>
-        <button class="key function" data-value="tan(">tan</button>
-        <button class="key function" data-value="sqrt(">√</button>
-        <button class="key operator" data-value="^">xʸ</button>
-
-        <button class="key function" data-value="log(">log</button>
-        <button class="key function" data-value="ln(">ln</button>
-        <button class="key function" data-value="π">π</button>
-        <button class="key function" data-value="e">e</button>
-        <button class="key operator" data-value="*">×</button>
-
-        <button class="key number" data-value="7">7</button>
-        <button class="key number" data-value="8">8</button>
-        <button class="key number" data-value="9">9</button>
-        <button class="key function" data-value="%">%</button>
-        <button class="key operator" data-value="-">−</button>
-
-        <button class="key number" data-value="4">4</button>
-        <button class="key number" data-value="5">5</button>
-        <button class="key number" data-value="6">6</button>
-        <button class="key function" data-value="!">x!</button>
-        <button class="key operator" data-value="+">+</button>
-
-        <button class="key number" data-value="1">1</button>
-        <button class="key number" data-value="2">2</button>
-        <button class="key number" data-value="3">3</button>
-        <button class="key function" data-value="Ans">Ans</button>
-        <button class="key equals" data-action="equals">=</button>
-
-        <button class="key number zero" data-value="0">0</button>
-        <button class="key number" data-value=".">.</button>
-        <button class="key function" data-action="sign">±</button>
-        <button class="key function" data-action="equals">EXE</button>
-      </div>
-      <p class="keyboard-hint">Tip: You can also type using your keyboard. Press Enter to calculate and Escape to clear.</p>
     </section>
 
-    <section class="coming-soon">
-      <div class="coming-icon">✳</div>
+    <section class="about-section" id="about">
+      <div class="about-mark" aria-hidden="true">∑</div>
       <div>
-        <p class="eyebrow">THE TOOLBOX IS GROWING</p>
-        <h2>One useful tool at a time.</h2>
-        <p>Unit converter, QR generator and more tools may join CalcLab soon.</p>
+        <p class="eyebrow">A LITTLE ABOUT CALCLAB</p>
+        <h2>Useful by design.</h2>
+        <p>CalcLab brings practical, free online tools together in one simple place. We’re building thoughtfully, one useful tool at a time.</p>
       </div>
-      <span class="soon-pill">COMING SOON</span>
     </section>
-
-    <footer>
-      <span>© <span id="year"></span> CalcLab</span>
-      <span>Made for curious minds <span class="footer-star">✦</span></span>
-    </footer>
   </main>
-  <script src="script.js"></script>
+  <div id="siteFooter"></div>
 </body>
 </html>

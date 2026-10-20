@@ -1,0 +1,174 @@
+const rootPath = document.body.dataset.root || '';
+const availableTools = [
+  { name: 'Scientific Calculator', description: 'Perform advanced mathematical calculations with trigonometry, powers, and more.', category: 'Mathematics', icon: '∑', href: `${rootPath}calculator/`, available: true },
+  { name: 'Percentage Calculator', description: 'Calculate percentages, increases, and decreases with ease.', category: 'Mathematics', icon: '%', available: false },
+  { name: 'Unit Converter', description: 'Convert common units of length, weight, and temperature.', category: 'Converters', icon: '↔', available: false },
+  { name: 'Age Calculator', description: 'Calculate your age from a date of birth.', category: 'Productivity', icon: '◷', available: false },
+  { name: 'Text Formatter', description: 'Convert text to uppercase, lowercase, and title case.', category: 'Text Tools', icon: 'Aa', available: false },
+  { name: 'Word Counter', description: 'Count words, characters, and sentences in your text.', category: 'Text Tools', icon: '¶', available: false }
+];
+
+const headerMount = document.getElementById('siteHeader');
+const footerMount = document.getElementById('siteFooter');
+const pageRoot = rootPath || './';
+
+if (headerMount) {
+  headerMount.innerHTML = `
+    <header class="site-header">
+      <div class="nav-wrap">
+        <a class="brand" href="${pageRoot}" aria-label="CalcLab home">
+          <span class="brand-mark" aria-hidden="true">∑</span>
+          <span>Calc<span class="brand-accent">Lab</span></span>
+        </a>
+        <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primaryNav">
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="primary-nav" id="primaryNav" aria-label="Main navigation">
+          <a href="${pageRoot}">Home</a>
+          <a href="${pageRoot}#tools">All Tools</a>
+          <a href="${pageRoot}#about">About</a>
+        </nav>
+        <form class="nav-search" action="${pageRoot}" role="search">
+          <label class="visually-hidden" for="toolSearch">Search tools</label>
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="toolSearch" name="q" type="search" placeholder="Search tools" autocomplete="off" />
+          <kbd>/</kbd>
+        </form>
+      </div>
+    </header>`;
+}
+
+if (footerMount) {
+  footerMount.innerHTML = `
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-about">
+          <a class="brand" href="${pageRoot}" aria-label="CalcLab home">
+            <span class="brand-mark" aria-hidden="true">∑</span>
+            <span>Calc<span class="brand-accent">Lab</span></span>
+          </a>
+          <p>Free, practical tools for everyday tasks. One useful tool at a time.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="${pageRoot}">Home</a>
+          <a href="${pageRoot}#tools">All Tools</a>
+          <a href="${pageRoot}privacy.html">Privacy Policy</a>
+          <a href="https://github.com/faysalmahamudhimel/ClacLab/issues/new" target="_blank" rel="noopener noreferrer">Contact</a>
+        </nav>
+        <p class="copyright">© <span class="current-year"></span> CalcLab. Made for curious minds <span class="footer-star" aria-hidden="true">✦</span></p>
+      </div>
+    </footer>`;
+}
+
+document.querySelectorAll('.current-year').forEach((year) => {
+  year.textContent = new Date().getFullYear();
+});
+
+const menuToggle = document.querySelector('.menu-toggle');
+const primaryNav = document.querySelector('.primary-nav');
+
+if (menuToggle && primaryNav) {
+  menuToggle.addEventListener('click', () => {
+    const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+    menuToggle.setAttribute('aria-expanded', String(!isOpen));
+    menuToggle.setAttribute('aria-label', isOpen ? 'Open navigation menu' : 'Close navigation menu');
+    primaryNav.classList.toggle('is-open', !isOpen);
+  });
+
+  primaryNav.addEventListener('click', (event) => {
+    if (event.target instanceof HTMLAnchorElement) {
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Open navigation menu');
+      primaryNav.classList.remove('is-open');
+    }
+  });
+}
+
+const toolGrid = document.getElementById('toolGrid');
+const categoryList = document.getElementById('categoryList');
+
+if (toolGrid && categoryList) {
+  const searchInput = document.getElementById('toolSearch');
+  const emptyState = document.getElementById('emptyState');
+  const toolCount = document.getElementById('toolCount');
+  const resetFilters = document.getElementById('resetFilters');
+  const categories = ['All Tools', ...new Set(availableTools.map((tool) => tool.category))];
+  const query = new URLSearchParams(window.location.search).get('q') || '';
+  let activeCategory = 'All Tools';
+
+  searchInput.value = query;
+  categoryList.innerHTML = categories.map((category) => `
+    <button class="category-button${category === activeCategory ? ' is-active' : ''}" type="button" data-category="${category}" aria-pressed="${category === activeCategory}">
+      ${category}
+    </button>`).join('');
+
+  function renderTools() {
+    const normalizedQuery = searchInput.value.trim().toLocaleLowerCase();
+    const matches = availableTools.filter((tool) => {
+      const matchesCategory = activeCategory === 'All Tools' || tool.category === activeCategory;
+      const searchableWords = `${tool.name} ${tool.description}`.toLocaleLowerCase().split(/[^a-z0-9]+/);
+      const matchesQuery = normalizedQuery.split(/\s+/).every((term) => searchableWords.some((word) => word.startsWith(term)));
+      return matchesCategory && matchesQuery;
+    });
+
+    toolGrid.innerHTML = matches.map((tool) => {
+      const tag = tool.available ? 'a' : 'article';
+      const href = tool.available ? ` href="${tool.href}"` : '';
+      const status = tool.available
+        ? '<span class="tool-status is-available"><span class="status-dot"></span> AVAILABLE</span>'
+        : '<span class="tool-status">COMING SOON</span>';
+      return `
+        <${tag} class="tool-card${tool.available ? ' is-available' : ' is-coming'}"${href}>
+          <div class="tool-card-top">
+            <span class="tool-icon" aria-hidden="true">${tool.icon}</span>
+            ${status}
+          </div>
+          <span class="tool-category">${tool.category}</span>
+          <h3>${tool.name}</h3>
+          <p>${tool.description}</p>
+          <span class="tool-action">${tool.available ? 'Open Tool' : 'Coming Soon'} <span aria-hidden="true">${tool.available ? '→' : '· · ·'}</span></span>
+        </${tag}>`;
+    }).join('');
+    toolCount.textContent = `${matches.length} of ${availableTools.length} tools`;
+    emptyState.hidden = matches.length > 0;
+    toolGrid.hidden = matches.length === 0;
+  }
+
+  categoryList.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-category]');
+    if (!button) return;
+    activeCategory = button.dataset.category;
+    categoryList.querySelectorAll('.category-button').forEach((categoryButton) => {
+      const isActive = categoryButton === button;
+      categoryButton.classList.toggle('is-active', isActive);
+      categoryButton.setAttribute('aria-pressed', String(isActive));
+    });
+    renderTools();
+  });
+
+  searchInput.addEventListener('input', renderTools);
+  searchInput.closest('form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    document.getElementById('tools').scrollIntoView({ behavior: 'smooth' });
+  });
+  resetFilters.addEventListener('click', () => {
+    searchInput.value = '';
+    activeCategory = 'All Tools';
+    categoryList.querySelectorAll('.category-button').forEach((button) => {
+      const isActive = button.dataset.category === activeCategory;
+      button.classList.toggle('is-active', isActive);
+      button.setAttribute('aria-pressed', String(isActive));
+    });
+    renderTools();
+    searchInput.focus();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+      event.preventDefault();
+      searchInput.focus();
+    }
+  });
+
+  renderTools();
+}

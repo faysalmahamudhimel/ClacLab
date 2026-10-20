@@ -101,5 +101,4 @@ document.addEventListener('keydown', (event) => {
   else if (event.key === 'Escape') clearAll();
 });
 
-document.getElementById('year').textContent = new Date().getFullYear();
 updateDisplay();

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080d17" />
+  <title>Scientific Calculator — CalcLab</title>
+  <meta name="description" content="Use CalcLab's free scientific calculator for arithmetic, trigonometry, powers, logarithms, factorials, and more." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Scientific Calculator — CalcLab" />
+  <meta property="og:description" content="A free scientific calculator for everyday and advanced calculations." />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../style.css" />
+  <script src="../common.js" defer></script>
+  <script src="../script.js?v=2" defer></script>
+</head>
+<body data-root="../">
+  <div id="siteHeader"></div>
+  <main class="page tool-page">
+    <a class="back-link" href="../#tools"><span aria-hidden="true">←</span> Back to All Tools</a>
+    <section class="tool-intro">
+      <p class="eyebrow">MATHEMATICS / TOOL 001</p>
+      <h1>Scientific <span>Calculator.</span></h1>
+      <p class="intro-copy">A fast, easy-to-use scientific calculator for everyday math and more advanced calculations.</p>
+    </section>
+
+    <section class="calculator" aria-label="Scientific calculator">
+      <div class="calc-heading">
+        <div>
+          <p class="calc-label">CALCLAB / 001</p>
+          <h2>Scientific</h2>
+        </div>
+        <button id="angleMode" class="mode-button" type="button" aria-label="Toggle angle mode">DEG</button>
+      </div>
+
+      <div class="screen">
+        <div id="expression" class="expression" aria-live="polite">Ready to calculate</div>
+        <div id="display" class="display" aria-live="polite">0</div>
+      </div>
+
+      <div class="keypad">
+        <button class="key function" type="button" data-action="clear">AC</button>
+        <button class="key function" type="button" data-action="delete" aria-label="Delete last character">DEL</button>
+        <button class="key function" type="button" data-value="(">(</button>
+        <button class="key function" type="button" data-value=")">)</button>
+        <button class="key operator" type="button" data-value="/">÷</button>
+
+        <button class="key function" type="button" data-value="sin(">sin</button>
+        <button class="key function" type="button" data-value="cos(">cos</button>
+        <button class="key function" type="button" data-value="tan(">tan</button>
+        <button class="key function" type="button" data-value="sqrt(">√</button>
+        <button class="key operator" type="button" data-value="^">xʸ</button>
+
+        <button class="key function" type="button" data-value="log(">log</button>
+        <button class="key function" type="button" data-value="ln(">ln</button>
+        <button class="key function" type="button" data-value="π">π</button>
+        <button class="key function" type="button" data-value="e">e</button>
+        <button class="key operator" type="button" data-value="*">×</button>
+
+        <button class="key number" type="button" data-value="7">7</button>
+        <button class="key number" type="button" data-value="8">8</button>
+        <button class="key number" type="button" data-value="9">9</button>
+        <button class="key function" type="button" data-value="%">%</button>
+        <button class="key operator" type="button" data-value="-">−</button>
+
+        <button class="key number" type="button" data-value="4">4</button>
+        <button class="key number" type="button" data-value="5">5</button>
+        <button class="key number" type="button" data-value="6">6</button>
+        <button class="key function" type="button" data-value="!">x!</button>
+        <button class="key operator" type="button" data-value="+">+</button>
+
+        <button class="key number" type="button" data-value="1">1</button>
+        <button class="key number" type="button" data-value="2">2</button>
+        <button class="key number" type="button" data-value="3">3</button>
+        <button class="key function" type="button" data-value="Ans">Ans</button>
+        <button class="key equals" type="button" data-action="equals">=</button>
+
+        <button class="key number zero" type="button" data-value="0">0</button>
+        <button class="key number" type="button" data-value=".">.</button>
+        <button class="key function" type="button" data-action="sign">±</button>
+        <button class="key function" type="button" data-action="equals">EXE</button>
+      </div>
+      <p class="keyboard-hint">Tip: Type using your keyboard. Press Enter to calculate and Escape to clear.</p>
+    </section>
+
+    <section class="related-section" aria-labelledby="relatedTitle">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">KEEP EXPLORING</p>
+          <h2 id="relatedTitle">Related tools</h2>
+        </div>
+        <a class="inline-link" href="../#tools">All tools <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="related-links">
+        <a href="../#tools">Percentage Calculator <span>Coming Soon</span></a>
+        <a href="../#tools">Unit Converter <span>Coming Soon</span></a>
+      </div>
+    </section>
+  </main>
+  <div id="siteFooter"></div>
+</body>
+</html>
