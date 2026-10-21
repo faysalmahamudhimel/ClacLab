@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080d17" />
+  <title>Number System Converter — CalcLab</title>
+  <meta name="description" content="Convert numbers between binary, decimal, octal, and hexadecimal for DSA, Digital Logic, and Computer Organization." />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../style.css" />
+  <script src="../common.js" defer></script>
+  <script src="tool.js" defer></script>
+</head>
+<body data-root="../">
+  <div id="siteHeader"></div>
+  <main class="page tool-page">
+    <a class="back-link" href="../#tools">← Back to All Tools</a>
+    <section class="tool-intro">
+      <p class="eyebrow">CSE / TOOL 005</p>
+      <h1>Number System <span>Converter.</span></h1>
+      <p class="intro-copy">Convert between Binary, Decimal, Octal and Hexadecimal. Useful for DSA, Digital Logic and Computer Organization.</p>
+    </section>
+    <section class="utility-tool" aria-label="Number system converter">
+      <form class="tool-form number-system-form" id="numberForm">
+        <label class="tool-field">Input number<input id="numberInput" type="text" inputmode="text" autocomplete="off" placeholder="For example: 101101" required /></label>
+        <label class="tool-field">Input base<select id="inputBase"><option value="2">Binary (base 2)</option><option value="10" selected>Decimal (base 10)</option><option value="8">Octal (base 8)</option><option value="16">Hexadecimal (base 16)</option></select></label>
+        <label class="tool-field">Output base<select id="outputBase"><option value="2">Binary</option><option value="10" selected>Decimal</option><option value="8">Octal</option><option value="16">Hexadecimal</option></select></label>
+        <button class="tool-submit" type="submit">Convert number</button>
+      </form>
+      <div class="result-shell">
+        <output class="tool-result number-result" id="result" aria-live="polite"><span class="result-label">RESULT</span></output>
+        <button class="result-clear" type="button" aria-label="Clear result">Clear</button>
+      </div>
+    </section>
+    <section class="related-section">
+      <div class="section-heading"><div><p class="eyebrow">KEEP EXPLORING</p><h2>Related tools</h2></div><a class="inline-link" href="../#tools">All tools →</a></div>
+      <div class="related-links"><a href="../calculator/">Scientific Calculator <span>Mathematics</span></a><a href="../percentage/">Percentage Calculator <span>Mathematics</span></a></div>
+    </section>
+  </main>
+  <div id="siteFooter"></div>
+</body>
+</html>

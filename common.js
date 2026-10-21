@@ -1,11 +1,13 @@
 const rootPath = document.body.dataset.root || '';
 const availableTools = [
   { name: 'Scientific Calculator', description: 'Perform advanced mathematical calculations with trigonometry, powers, and more.', category: 'Mathematics', icon: '∑', href: `${rootPath}calculator/`, available: true },
-  { name: 'Percentage Calculator', description: 'Calculate percentages, increases, and decreases with ease.', category: 'Mathematics', icon: '%', available: false },
-  { name: 'Unit Converter', description: 'Convert common units of length, weight, and temperature.', category: 'Converters', icon: '↔', available: false },
-  { name: 'Age Calculator', description: 'Calculate your age from a date of birth.', category: 'Productivity', icon: '◷', available: false },
-  { name: 'Text Formatter', description: 'Convert text to uppercase, lowercase, and title case.', category: 'Text Tools', icon: 'Aa', available: false },
-  { name: 'Word Counter', description: 'Count words, characters, and sentences in your text.', category: 'Text Tools', icon: '¶', available: false }
+  { name: 'Percentage Calculator', description: 'Calculate percentages, increases, and decreases with ease.', category: 'Mathematics', icon: '%', href: `${rootPath}percentage/`, available: true },
+  { name: 'Unit Converter', description: 'Convert common units of length, weight, and temperature.', category: 'Mathematics', icon: '↔', href: `${rootPath}converter/`, available: true },
+  { name: 'Age Calculator', description: 'Calculate your age from a date of birth.', category: 'Mathematics', icon: '◷', href: `${rootPath}age/`, available: true },
+  { name: 'Number System Converter', description: 'Convert Binary, Decimal, Octal and Hexadecimal numbers. Useful for DSA, Digital Logic and Computer Organization.', category: 'CSE', icon: '01', href: `${rootPath}number-system/`, available: true },
+  { name: 'Logic Gate Simulator', description: 'Explore AND, OR, NOT, NAND, NOR, XOR, and XNOR gates with live circuits and truth tables.', category: 'CSE', icon: 'A∧B', href: `${rootPath}logic-gate/`, available: true },
+  { name: 'Sorting Visualizer', description: 'Watch Bubble, Selection, Insertion, Merge, and Quick Sort run step by step.', category: 'DSA', icon: '↕', href: `${rootPath}sorting-visualizer/`, available: true },
+  { name: 'Searching Visualizer', description: 'Explore Linear and Binary Search with live ranges, comparisons, and results.', category: 'DSA', icon: '⌕', href: `${rootPath}searching-visualizer/`, available: true }
 ];
 
 const headerMount = document.getElementById('siteHeader');
@@ -55,14 +57,10 @@ if (footerMount) {
           <a href="${pageRoot}privacy.html">Privacy Policy</a>
           <a href="https://github.com/faysalmahamudhimel/ClacLab/issues/new" target="_blank" rel="noopener noreferrer">Contact</a>
         </nav>
-        <p class="copyright">© <span class="current-year"></span> CalcLab. Made for curious minds <span class="footer-star" aria-hidden="true">✦</span></p>
+        <p class="copyright">© 2026 Faysal Mahamud Himel. All rights reserved.</p>
       </div>
     </footer>`;
 }
-
-document.querySelectorAll('.current-year').forEach((year) => {
-  year.textContent = new Date().getFullYear();
-});
 
 const menuToggle = document.querySelector('.menu-toggle');
 const primaryNav = document.querySelector('.primary-nav');

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080d17" />
+  <title>Logic Gate Simulator — CalcLab</title>
+  <meta name="description" content="Explore seven digital logic gates with interactive inputs, circuit diagrams, and live truth tables." />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../style.css" />
+  <script src="../common.js" defer></script>
+  <script src="tool.js" defer></script>
+</head>
+<body data-root="../">
+  <div id="siteHeader"></div>
+  <main class="page tool-page logic-page">
+    <a class="back-link" href="../#tools">← Back to All Tools</a>
+    <section class="tool-intro">
+      <p class="eyebrow">CSE / DIGITAL LOGIC</p>
+      <h1>Logic Gate <span>Simulator.</span></h1>
+      <p class="intro-copy">Toggle the inputs and see how a logic gate changes its output, circuit signal, and truth table.</p>
+    </section>
+
+    <section class="logic-simulator" aria-label="Interactive logic gate simulator">
+      <div class="logic-toolbar">
+        <label class="logic-select-label" for="gateSelect">SELECT GATE</label>
+        <select id="gateSelect" class="logic-select">
+          <option value="AND">AND</option>
+          <option value="OR">OR</option>
+          <option value="NOT">NOT</option>
+          <option value="NAND">NAND</option>
+          <option value="NOR">NOR</option>
+          <option value="XOR">XOR</option>
+          <option value="XNOR">XNOR</option>
+        </select>
+        <button class="logic-reset" id="resetInputs" type="button">Reset</button>
+      </div>
+
+      <div class="logic-workspace">
+        <section class="logic-panel logic-inputs" aria-labelledby="inputTitle">
+          <div class="logic-panel-heading"><span class="logic-step">01</span><div><h2 id="inputTitle">Inputs</h2><p>Switch a signal on or off</p></div></div>
+          <div class="logic-switch-row">
+            <span class="logic-input-name">A</span>
+            <button class="logic-switch" id="inputA" type="button" aria-label="Input A" aria-pressed="false"><span></span></button>
+            <span class="logic-bit" id="valueA">0</span>
+          </div>
+          <div class="logic-switch-row" id="inputBRow">
+            <span class="logic-input-name">B</span>
+            <button class="logic-switch" id="inputB" type="button" aria-label="Input B" aria-pressed="false"><span></span></button>
+            <span class="logic-bit" id="valueB">0</span>
+          </div>
+          <p class="logic-input-note">0 = OFF <span aria-hidden="true">·</span> 1 = ON</p>
+        </section>
+
+        <section class="logic-panel logic-circuit-panel" aria-labelledby="circuitTitle">
+          <div class="logic-panel-heading"><span class="logic-step">02</span><div><h2 id="circuitTitle">Circuit</h2><p id="circuitSubtitle">AND gate · live signal</p></div></div>
+          <div class="circuit-scroll">
+            <svg class="logic-circuit" id="logicCircuit" viewBox="0 0 620 220" role="img" aria-labelledby="circuitSvgTitle circuitSvgDesc">
+              <title id="circuitSvgTitle">AND gate circuit</title>
+              <desc id="circuitSvgDesc">Inputs A and B connect through an AND gate to output Y.</desc>
+              <text class="wire-label" id="wireLabelA" x="20" y="77">A</text>
+              <text class="wire-label" id="wireLabelB" x="20" y="157">B</text>
+              <path id="wireA" class="circuit-wire" d="M42 72 H250" />
+              <path id="wireB" class="circuit-wire" d="M42 152 H250" />
+              <path id="wireOut" class="circuit-wire" d="M390 112 H574" />
+              <g id="gateShape" class="gate-shape">
+                <path class="gate-body" d="M250 42 H315 A70 70 0 0 1 315 182 H250 Z" />
+                <text class="gate-symbol" x="315" y="119">&amp;</text>
+              </g>
+              <circle class="wire-node" id="nodeA" cx="42" cy="72" r="4" />
+              <circle class="wire-node" id="nodeB" cx="42" cy="152" r="4" />
+              <circle class="wire-node" id="nodeOut" cx="574" cy="112" r="4" />
+              <text class="wire-label" x="585" y="117">Y</text>
+            </svg>
+          </div>
+          <div class="logic-output-row">
+            <div><span class="logic-output-label">OUTPUT Y</span><span class="logic-output-value" id="outputValue">0</span></div>
+            <span class="output-state" id="outputState"><span class="output-state-dot"></span> OFF</span>
+          </div>
+        </section>
+      </div>
+
+      <section class="logic-explanation" aria-live="polite">
+        <div class="logic-explanation-symbol" id="gateSymbol">∧</div>
+        <div><span class="logic-output-label">BOOLEAN EXPRESSION</span><p id="booleanExpression">Y = A ∧ B</p></div>
+        <p class="logic-description" id="gateDescription">The output is ON only when both inputs are ON.</p>
+      </section>
+    </section>
+
+    <section class="logic-truth-section" aria-labelledby="truthTitle">
+      <div class="section-heading"><div><p class="eyebrow">GATE REFERENCE</p><h2 id="truthTitle">Truth table</h2><p class="section-copy" id="truthHint">The highlighted row matches the current inputs.</p></div></div>
+      <div class="truth-table-wrap">
+        <table class="truth-table" id="truthTable">
+          <caption class="visually-hidden">Truth table for the selected logic gate</caption>
+          <thead><tr><th scope="col">A</th><th scope="col" id="truthBHeading">B</th><th scope="col">Y</th></tr></thead>
+          <tbody id="truthRows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <div id="siteFooter"></div>
+</body>
+</html>
