@@ -15,7 +15,7 @@
 <body data-root="../">
   <div id="siteHeader"></div>
   <main class="page tool-page dsa-page graph-page">
-    <a class="back-link" href="../#tools">← Back to All Tools</a>
+    <a class="back-link" href="../"><span aria-hidden="true">←</span> Back to Home</a>
     <section class="tool-intro">
       <p class="eyebrow">DSA / GRAPH ALGORITHMS</p>
       <h1>Graph <span>Visualizer.</span></h1>
@@ -63,7 +63,7 @@
               <button class="graph-button" id="connectSelection" type="button">Connect selected pair</button>
             </form>
             <label class="graph-field sample-field">Sample graph<select id="sampleGraph"><option value="">Choose a sample…</option><option value="bfs">BFS / DFS tree</option><option value="disconnected">Disconnected graph</option><option value="directed">Directed graph</option><option value="dijkstra">Weighted Dijkstra graph</option></select></label>
-            <button class="graph-button graph-sample-load" id="loadSample" type="button">Load sample</button>
+            <button class="graph-button graph-button-primary graph-sample-load" id="loadSample" type="button">Load sample</button>
             <p class="graph-feedback" id="graphFeedback" role="status" aria-live="polite">Choose a mode, add nodes, and connect them.</p>
           </section>
 

@@ -15,6 +15,24 @@ const headerMount = document.getElementById('siteHeader');
 const footerMount = document.getElementById('siteFooter');
 const pageRoot = rootPath || './';
 
+// Keep the selected toolbox category available when a tool is opened.
+const toolBackLink = document.querySelector('.tool-page .back-link');
+if (toolBackLink) {
+  try {
+    const savedReturn = JSON.parse(sessionStorage.getItem('calclab-tool-return') || 'null');
+    if (savedReturn && Date.now() - savedReturn.savedAt < 60 * 60 * 1000 && savedReturn.category && savedReturn.category !== 'All Tools') {
+      const returnUrl = new URL(pageRoot, window.location.href);
+      returnUrl.searchParams.set('category', savedReturn.category);
+      returnUrl.hash = 'tools';
+      toolBackLink.href = returnUrl.href;
+      toolBackLink.innerHTML = `<span aria-hidden="true">←</span> Back to ${savedReturn.category} tools`;
+    }
+    toolBackLink.addEventListener('click', () => sessionStorage.removeItem('calclab-tool-return'));
+  } catch {
+    // Keep the regular home link if storage is unavailable.
+  }
+}
+
 if (headerMount) {
   headerMount.innerHTML = `
     <header class="site-header">
@@ -93,8 +111,10 @@ if (toolGrid && categoryList) {
   const toolCount = document.getElementById('toolCount');
   const resetFilters = document.getElementById('resetFilters');
   const categories = ['All Tools', ...new Set(availableTools.map((tool) => tool.category))];
-  const query = new URLSearchParams(window.location.search).get('q') || '';
-  let activeCategory = 'All Tools';
+  const searchParams = new URLSearchParams(window.location.search);
+  const query = searchParams.get('q') || '';
+  const requestedCategory = searchParams.get('category');
+  let activeCategory = categories.includes(requestedCategory) ? requestedCategory : 'All Tools';
 
   searchInput.value = query;
   categoryList.innerHTML = categories.map((category) => `
@@ -144,6 +164,16 @@ if (toolGrid && categoryList) {
       categoryButton.setAttribute('aria-pressed', String(isActive));
     });
     renderTools();
+  });
+
+  toolGrid.addEventListener('click', (event) => {
+    const toolLink = event.target.closest('a.tool-card');
+    if (!toolLink) return;
+    try {
+      sessionStorage.setItem('calclab-tool-return', JSON.stringify({ category: activeCategory, savedAt: Date.now() }));
+    } catch {
+      // Direct tool navigation still has its normal home link when storage is unavailable.
+    }
   });
 
   searchInput.addEventListener('input', renderTools);
