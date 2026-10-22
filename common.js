@@ -7,7 +7,8 @@ const availableTools = [
   { name: 'Number System Converter', description: 'Convert Binary, Decimal, Octal and Hexadecimal numbers. Useful for DSA, Digital Logic and Computer Organization.', category: 'CSE', icon: '01', href: `${rootPath}number-system/`, available: true },
   { name: 'Logic Gate Simulator', description: 'Explore AND, OR, NOT, NAND, NOR, XOR, and XNOR gates with live circuits and truth tables.', category: 'CSE', icon: 'A∧B', href: `${rootPath}logic-gate/`, available: true },
   { name: 'Sorting Visualizer', description: 'Watch Bubble, Selection, Insertion, Merge, and Quick Sort run step by step.', category: 'DSA', icon: '↕', href: `${rootPath}sorting-visualizer/`, available: true },
-  { name: 'Searching Visualizer', description: 'Explore Linear and Binary Search with live ranges, comparisons, and results.', category: 'DSA', icon: '⌕', href: `${rootPath}searching-visualizer/`, available: true }
+  { name: 'Searching Visualizer', description: 'Explore Linear and Binary Search with live ranges, comparisons, and results.', category: 'DSA', icon: '⌕', href: `${rootPath}searching-visualizer/`, available: true },
+  { name: 'Graph Visualizer', description: 'Build graphs and explore BFS, DFS, and Dijkstra step by step.', category: 'DSA', icon: '◉', href: `${rootPath}graph-visualizer/`, available: true }
 ];
 
 const headerMount = document.getElementById('siteHeader');
@@ -29,6 +30,7 @@ if (headerMount) {
           <a href="${pageRoot}">Home</a>
           <a href="${pageRoot}#tools">All Tools</a>
           <a href="${pageRoot}#about">About</a>
+          <a href="${pageRoot}contact.html">Contact</a>
         </nav>
         <form class="nav-search" action="${pageRoot}" role="search">
           <label class="visually-hidden" for="toolSearch">Search tools</label>
@@ -55,7 +57,7 @@ if (footerMount) {
           <a href="${pageRoot}">Home</a>
           <a href="${pageRoot}#tools">All Tools</a>
           <a href="${pageRoot}privacy.html">Privacy Policy</a>
-          <a href="https://github.com/faysalmahamudhimel/ClacLab/issues/new" target="_blank" rel="noopener noreferrer">Contact</a>
+          <a href="${pageRoot}contact.html">Contact</a>
         </nav>
         <p class="copyright">© 2026 Faysal Mahamud Himel. All rights reserved.</p>
       </div>

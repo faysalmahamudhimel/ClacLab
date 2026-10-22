@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080d17" />
+  <title>Graph Visualizer — CalcLab</title>
+  <meta name="description" content="Build directed or undirected graphs, then explore BFS, DFS, and Dijkstra step by step." />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../style.css" />
+  <script src="../common.js" defer></script>
+  <script src="algorithms.js" defer></script>
+  <script src="tool.js" defer></script>
+</head>
+<body data-root="../">
+  <div id="siteHeader"></div>
+  <main class="page tool-page dsa-page graph-page">
+    <a class="back-link" href="../#tools">← Back to All Tools</a>
+    <section class="tool-intro">
+      <p class="eyebrow">DSA / GRAPH ALGORITHMS</p>
+      <h1>Graph <span>Visualizer.</span></h1>
+      <p class="intro-copy">Build a graph by hand, then trace BFS, DFS, or Dijkstra across its actual nodes and edges.</p>
+    </section>
+
+    <section class="graph-app" aria-label="Graph builder and algorithm simulator">
+      <div class="graph-builder-toolbar">
+        <div class="graph-mode-group" role="group" aria-label="Graph editing mode">
+          <button class="graph-mode is-active" type="button" data-mode="select" aria-pressed="true">Select / drag</button>
+          <button class="graph-mode" type="button" data-mode="connect" aria-pressed="false">Connect nodes</button>
+          <button class="graph-mode" type="button" data-mode="add" aria-pressed="false">Add on canvas</button>
+        </div>
+        <div class="graph-toolbar-actions">
+          <label class="graph-check"><input id="directedGraph" type="checkbox" /> Directed</label>
+          <label class="graph-check"><input id="weightedGraph" type="checkbox" /> Weighted</label>
+          <button class="graph-button" id="deleteSelection" type="button" disabled>Delete selected</button>
+          <button class="graph-button graph-button-danger" id="clearGraph" type="button">Clear graph</button>
+        </div>
+      </div>
+
+      <div class="graph-layout">
+        <section class="graph-canvas-panel" aria-label="Graph canvas">
+          <div class="graph-canvas-heading"><div><span class="graph-kicker">GRAPH CANVAS</span><p id="canvasHint">Select a node to drag it. Choose Connect to add edges.</p></div><span class="graph-count" id="graphCount">0 nodes · 0 edges</span></div>
+          <div class="graph-canvas-wrap">
+            <svg id="graphCanvas" class="graph-canvas" viewBox="0 0 900 520" role="img" aria-label="Interactive graph canvas">
+              <defs><marker id="graphArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" /></marker></defs>
+              <g id="graphEdges"></g><g id="graphNodes"></g>
+            </svg>
+            <div class="graph-empty-hint" id="graphEmptyHint">Add a node to start building your graph.</div>
+          </div>
+          <div class="graph-legend"><span><i class="graph-legend-dot node-default"></i>Unvisited</span><span><i class="graph-legend-dot node-active"></i>Active</span><span><i class="graph-legend-dot node-visited"></i>Visited</span><span><i class="graph-legend-line edge-path"></i>Traversal / shortest path</span></div>
+        </section>
+
+        <aside class="graph-side-panel">
+          <section class="graph-side-card" aria-labelledby="builderTitle">
+            <div class="graph-card-heading"><span class="graph-step">01</span><h2 id="builderTitle">Graph builder</h2></div>
+            <form id="addNodeForm" class="graph-form-row">
+              <label class="graph-field">Node label<input id="nodeLabel" type="text" maxlength="12" placeholder="A, B, C…" autocomplete="off" /></label>
+              <button class="graph-button graph-button-primary" type="submit">Add node</button>
+            </form>
+            <form id="addEdgeForm" class="graph-edge-form">
+              <p class="graph-form-caption">Connect mode: choose two nodes on the canvas</p>
+              <label class="graph-field">Edge weight<input id="edgeWeight" type="number" step="any" value="1" /></label>
+              <button class="graph-button" id="connectSelection" type="button">Connect selected pair</button>
+            </form>
+            <label class="graph-field sample-field">Sample graph<select id="sampleGraph"><option value="">Choose a sample…</option><option value="bfs">BFS / DFS tree</option><option value="disconnected">Disconnected graph</option><option value="directed">Directed graph</option><option value="dijkstra">Weighted Dijkstra graph</option></select></label>
+            <button class="graph-button graph-sample-load" id="loadSample" type="button">Load sample</button>
+            <p class="graph-feedback" id="graphFeedback" role="status" aria-live="polite">Choose a mode, add nodes, and connect them.</p>
+          </section>
+
+          <section class="graph-side-card" aria-labelledby="runTitle">
+            <div class="graph-card-heading"><span class="graph-step">02</span><h2 id="runTitle">Run algorithm</h2></div>
+            <label class="graph-field">Algorithm<select id="graphAlgorithm"><option value="bfs">Breadth-First Search (BFS)</option><option value="dfs">Depth-First Search (DFS)</option><option value="dijkstra">Dijkstra’s Shortest Path</option></select></label>
+            <div class="graph-terminal-fields" id="traversalFields"><label class="graph-field">Start node<select id="startNode"></select></label></div>
+            <div class="graph-terminal-fields" id="pathFields" hidden><label class="graph-field">Source<select id="sourceNode"></select></label><label class="graph-field">Destination<select id="destinationNode"></select></label></div>
+            <div class="graph-playback-buttons"><button class="graph-button graph-button-primary" id="graphPlay" type="button">Play</button><button class="graph-button" id="graphPause" type="button" disabled>Pause</button><button class="graph-button" id="graphStep" type="button">Step forward</button><button class="graph-button" id="graphReset" type="button">Reset</button></div>
+            <label class="graph-speed" for="graphSpeed"><span>Speed</span><input id="graphSpeed" type="range" min="1" max="100" value="55" /><output id="graphSpeedValue">55%</output></label>
+            <p class="graph-elapsed">Elapsed <span id="graphElapsed">0.00 s</span></p>
+            <p class="graph-run-status" id="algorithmStatus" role="status" aria-live="polite">Build a graph and choose an algorithm.</p>
+          </section>
+        </aside>
+      </div>
+
+      <section class="graph-live-panels">
+        <div class="graph-live-card">
+          <div class="graph-card-heading"><span class="graph-step">03</span><h2 id="worklistTitle">Queue</h2></div>
+          <div class="graph-chip-list" id="worklistContents"><span class="graph-muted">Waiting for a run</span></div>
+        </div>
+        <div class="graph-live-card">
+          <div class="graph-card-heading"><span class="graph-step">04</span><h2 id="progressTitle">Traversal order</h2></div>
+          <div class="graph-chip-list" id="traversalOrder"><span class="graph-muted">No nodes visited yet</span></div>
+        </div>
+        <div class="graph-live-card graph-distance-card" id="distanceCard" hidden>
+          <div class="graph-card-heading"><span class="graph-step">05</span><h2>Distance table</h2></div>
+          <div class="graph-distance-wrap"><table class="graph-distance-table"><thead><tr><th>Node</th><th>Distance</th><th>Previous</th></tr></thead><tbody id="distanceRows"></tbody></table></div>
+          <p class="graph-path-result" id="pathResult"></p>
+        </div>
+      </section>
+
+      <section class="graph-education" aria-labelledby="graphInfoTitle">
+        <div><p class="eyebrow">ALGORITHM NOTES</p><h2 id="graphInfoTitle">Breadth-First Search</h2><p id="algorithmExplanation"></p></div>
+        <div class="graph-complexities" id="graphComplexities"></div>
+        <div class="graph-code-details"><details><summary>View C++ implementation</summary><pre><code id="graphCppCode"></code></pre></details></div>
+      </section>
+    </section>
+  </main>
+  <div id="siteFooter"></div>
+</body>
+</html>

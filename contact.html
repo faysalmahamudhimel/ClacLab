@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080d17" />
+  <title>Contact - CalcLab</title>
+  <meta name="description" content="Get in touch with CalcLab to share feedback, report a bug, or suggest a useful tool." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="common.js" defer></script>
+  <script src="contact-config.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@5/dist/email.min.js" defer></script>
+  <script src="contact.js" defer></script>
+</head>
+<body class="contact-page" data-root="">
+  <div id="siteHeader"></div>
+  <main class="page">
+    <a class="back-link contact-back-link" href="./"><span aria-hidden="true">←</span> Back to Home</a>
+    <section class="tool-intro">
+      <p class="eyebrow">CALCLAB / CONTACT</p>
+      <h1>Get in <span>touch.</span></h1>
+      <p class="intro-copy">Have feedback, spotted a bug, want to suggest a tool, or have an idea to share? Send a message and help make CalcLab better.</p>
+    </section>
+    <section class="contact-section" id="contact" aria-labelledby="contactTitle">
+      <div class="contact-intro">
+        <p class="eyebrow">GET IN TOUCH</p>
+        <h2 id="contactTitle">Let's build something <span>useful.</span></h2>
+        <p>Have feedback, spotted a bug, want to suggest a tool, or have an idea to share? Send a message and help make CalcLab better.</p>
+        <div class="contact-methods" id="contactMethods" aria-label="Contact information"></div>
+      </div>
+
+      <form class="contact-form" id="contactForm" name="calclab-contact" aria-busy="false" novalidate>
+        <p class="contact-honeypot" aria-hidden="true"><label>Leave this field empty<input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+        <div class="contact-form-heading">
+          <span class="contact-form-icon" aria-hidden="true">✳</span>
+          <div><h3>Send a message</h3><p>We'd love to hear from you.</p></div>
+        </div>
+        <div class="contact-fields">
+          <label class="contact-field">Full name<input name="name" type="text" autocomplete="name" placeholder="Your name" required aria-describedby="contactNameError" /><small class="contact-field-error" id="contactNameError"></small></label>
+          <label class="contact-field">Email address<input name="from_email" type="email" autocomplete="email" placeholder="you@example.com" required aria-describedby="contactEmailError" /><small class="contact-field-error" id="contactEmailError"></small></label>
+          <label class="contact-field contact-field-wide">Subject<input name="title" type="text" placeholder="What would you like to talk about?" required aria-describedby="contactSubjectError" /><small class="contact-field-error" id="contactSubjectError"></small></label>
+          <label class="contact-field contact-field-wide">Message<textarea name="message" rows="5" placeholder="Share your feedback, bug report, or idea..." required aria-describedby="contactMessageError" ></textarea><small class="contact-field-error" id="contactMessageError"></small></label>
+        </div>
+        <div class="contact-submit-row"><button class="contact-submit" id="contactSubmit" type="submit"><span>Send message</span><span aria-hidden="true">↗</span></button><span class="contact-privacy-note">Your details are used only to reply to your message.</span></div>
+        <p class="contact-status" id="contactStatus" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+  <div id="siteFooter"></div>
+</body>
+</html>
