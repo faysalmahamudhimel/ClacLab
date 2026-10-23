@@ -27,7 +27,9 @@ form.addEventListener('submit', (event) => {
   let converted;
   if (type.value === 'temperature') converted = fromCelsius(toCelsius(amount, from.value), to.value);
   else converted = amount * units[type.value][from.value][1] / units[type.value][to.value][1];
-  const formatted = Number(converted.toPrecision(10)).toLocaleString(undefined, { maximumFractionDigits: 8 });
+  // Keep the full integer portion: toPrecision(10) rounded large conversions
+  // (for example, kilograms to grams) and changed the displayed result.
+  const formatted = converted.toLocaleString(undefined, { maximumFractionDigits: 8 });
   result.innerHTML = `<span class="result-label">RESULT</span><span class="result-value">${formatted} ${units[type.value][to.value][0]}</span>`;
 });
 populateUnits();

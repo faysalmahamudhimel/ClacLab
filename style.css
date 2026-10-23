@@ -323,7 +323,7 @@ a.tool-card:focus-visible {
 .number-system-form { grid-template-columns: 1fr; }
 .tool-field { display: grid; min-width: 0; gap: 7px; color: #c0cad9; font-size: 14px; font-weight: 700; }
 .tool-field input, .tool-field select { width: 100%; min-width: 0; min-height: 46px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; color: var(--text); background: rgba(3, 8, 16, .55); font-size: 16px; }
-.tool-field input[type="date"] { display: block; min-inline-size: 0; max-width: 100%; }
+.tool-field input[type="date"] { display: block; box-sizing: border-box; width: 100%; min-width: 0; min-inline-size: 0; max-width: 100%; }
 .tool-field select option { color: var(--text); background: var(--panel); }
 .tool-submit { min-height: 46px; padding: 10px 16px; border: 1px solid rgba(80, 227, 194, .3); border-radius: 10px; color: #071411; background: var(--accent); font-weight: 800; cursor: pointer; }
 .result-shell { display: flex; align-items: stretch; gap: 9px; margin-top: 20px; }
